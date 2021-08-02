@@ -5,15 +5,16 @@ import Card from './Card';
 const TodoList = () => {
     const [modal, setModal] = useState(false);
     const [taskList, setTaskList] = useState([])
-    
+    const [l, setl] = useState(0)
     useEffect(() => {
         let arr = localStorage.getItem("taskList")
        
         if(arr){
             let obj = JSON.parse(arr)
+            setl(obj.length)
             setTaskList(obj)
         }
-    }, [])
+    }, [l])
 
 
     const deleteTask = (index) => {
@@ -21,7 +22,8 @@ const TodoList = () => {
         tempList.splice(index, 1)
         localStorage.setItem("taskList", JSON.stringify(tempList))
         setTaskList(tempList)
-        window.location.reload()
+        setl(tempList.length)
+        //window.location.reload()
     }
 
     const updateListArray = (obj, index) => {
@@ -29,7 +31,8 @@ const TodoList = () => {
         tempList[index] = obj
         localStorage.setItem("taskList", JSON.stringify(tempList))
         setTaskList(tempList)
-        window.location.reload()
+        setl(tempList.length)
+        //window.location.reload()
     }
 
     const toggle = () => {
@@ -41,6 +44,7 @@ const TodoList = () => {
         tempList.push(taskObj)
         localStorage.setItem("taskList", JSON.stringify(tempList))
         setTaskList(taskList)
+        setl(tempList.length)
         setModal(false)
     }
 
@@ -49,11 +53,11 @@ const TodoList = () => {
         <>
             <div className = "header text-center">
                 <h1>Todo List</h1>
-                <button className = "btn btn-primary mt-2" onClick = {() => setModal(true)} >Create Task</button>
+                <button className = "btn btn-primary mt-2" onClick = {() => setModal(true)}>Create Task</button>
             </div>
             
             <div className = "task-container">
-            {taskList && taskList.map((obj , index) => <Card taskObj = {obj} index = {index} deleteTask = {deleteTask} updateListArray = {updateListArray}/> )}
+            {taskList && taskList.map((obj , index) => <Card taskObj = {obj} index = {index} key={index} deleteTask = {deleteTask} updateListArray = {updateListArray}/> )}
             </div>
             <CreateTask toggle = {toggle} modal = {modal} save = {saveTask}/>
         </>
