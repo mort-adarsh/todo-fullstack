@@ -24,6 +24,7 @@ const CreateTaskPopup = ({modal, toggle, save}) => {
         if(taskName.length!==0){ 
             taskObj["Name"] = taskName
             taskObj["Description"] = description
+            taskObj["index"] = 22
             save(taskObj)
         }
         else {

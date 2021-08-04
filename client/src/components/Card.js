@@ -35,20 +35,20 @@ const Card = ({taskObj, index, deleteTask, updateListArray}) => {
         updateListArray(obj, index)
     }
 
-    const handleDelete = () => {
-        deleteTask(index)
+    const handleDelete = (id) => {
+        deleteTask(id)
     }
 
     return (
         <div className = "card-wrapper mr-5">
             <div className = "card-top" style={{"backgroundColor": colors[index%5].primaryColor}}></div>
             <div className = "task-holder">
-                <span className = "card-header" style={{"backgroundColor": colors[index%5].secondaryColor, "borderRadius": "10px"}}>{taskObj.Name}</span>
-                <p className = "mt-3">{taskObj.Description}</p>
+                <span className = "card-header" style={{"backgroundColor": colors[index%5].secondaryColor, "borderRadius": "10px"}}>{taskObj.tname}</span>
+                <p className = "mt-3">{taskObj.desc}</p>
 
                 <div style={{"position": "absolute", "right" : "20px", "bottom" : "20px"}}>
                     <i className = "far fa-edit mr-3" style={{"color" : colors[index%5].primaryColor, "cursor" : "pointer"}} onClick = {() => setModal(true)}></i>
-                    <i className="fas fa-trash-alt" style = {{"color" : colors[index%5].primaryColor, "cursor" : "pointer"}} onClick = {handleDelete}></i>
+                    <i className="fas fa-trash-alt" style = {{"color" : colors[index%5].primaryColor, "cursor" : "pointer"}} onClick = {()=>handleDelete(taskObj._id)}></i>
                 </div>
         </div>
         <EditTask modal = {modal} toggle = {toggle} updateTask = {updateTask} taskObj = {taskObj}/>

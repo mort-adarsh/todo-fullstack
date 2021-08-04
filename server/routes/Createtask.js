@@ -8,18 +8,20 @@ router.post('/',async (req, res)=>{
     if(!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array()});
     }
+    // console.log(req.body)
     //res.send(req.body)
     try {
         const newtodo = new Todo({
-            index: req.body.index,
-            tname: req.body.tname,
-            desc: req.body.desc
+            index: req.body.value.index,
+            tname: req.body.value.Name,
+            desc: req.body.value.Description
         })
-        console.log(newtodo)
-        const todo = newtodo.save()
-        res.json(todo);
+        //console.log(newtodo)
+        newtodo.save()
+        return res.status(200).send('Task Created')
     } catch (err) {
         console.log(err)
     }
 })
+
 module.exports = router;

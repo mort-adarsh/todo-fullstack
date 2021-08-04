@@ -21,10 +21,12 @@ const EditTaskPopup = ({modal, toggle, updateTask, taskObj}) => {
         setDescription(taskObj.Description)
     },[taskObj.Name,taskObj.Description ])
 
-    const handleUpdate = (e) => {
-        e.preventDefault();
+    const handleUpdate = (id) => {
+       // e.preventDefault();
         let tempObj = {}
         if(taskName.length!==0){
+        tempObj['id']= id
+        tempObj['index']= 0;
         tempObj['Name'] = taskName
         tempObj['Description'] = description
         updateTask(tempObj)
@@ -50,7 +52,7 @@ const EditTaskPopup = ({modal, toggle, updateTask, taskObj}) => {
                 
             </ModalBody>
             <ModalFooter>
-            <Button color="primary" onClick={handleUpdate}>Update</Button>{' '}
+            <Button color="primary" onClick= {()=>handleUpdate(taskObj._id)}>Update</Button>{' '}
             <Button color="secondary" onClick={toggle}>Cancel</Button>
             </ModalFooter>
       </Modal>
